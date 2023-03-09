@@ -1,0 +1,216 @@
+openapi: "3.0.1"
+
+info:
+  title: "User"
+  version: "1"
+  description: User API
+
+servers:
+  - url: http://localhost:8080/api
+    description: Local server
+
+paths:
+
+  /user:
+    post:
+      summary: Save User
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    put:
+      summary: Update User
+      operationId: updateUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    get:
+      summary: Get All Users
+      operationId: getAllUsers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+  /user/{id}:
+    delete:
+      summary: Delete User By Id
+      operationId: deleteUserById
+      parameters:
+        - name: id
+          in: path
+          description: Unique Id of an User
+          required: true
+          schema:
+            type: string
+            format: integer
+      responses:
+        '204':
+          description: OK
+    get:
+      summary: Get User By Id
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          description: Unique Id of an User
+          required: true
+          schema:
+            type: string
+            format: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /employee:
+    post:
+      summary: Save Employee
+      operationId: createEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDTO'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+    put:
+      summary: Update Employee
+      operationId: updateEmployee
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeDTO'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+    get:
+      summary: Get All Employees
+      operationId: getAllEmployees
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/EmployeeDTO'
+  /employee/{id}:
+    get:
+      summary: Get Employee By Id
+      operationId: getEmployeeById
+      parameters:
+        - name: id
+          in: path
+          description: Unique Id of an Employee
+          required: true
+          schema:
+            type: string
+            format: integer
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeDTO'
+    delete:
+      summary: Delete Employee By Id
+      operationId: deleteEmployeeById
+      parameters:
+        - name: id
+          in: path
+          description: Unique Id of an Employee
+          required: true
+          schema:
+            type: string
+            format: integer
+      responses:
+        '204':
+          description: OK
+
+components:
+  schemas:
+    UserDTO:
+      type: object
+      description: Data element for User
+      required:
+        - email
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+          minLength: 3
+        lastName:
+          type: string
+        address:
+          type: string
+    EmployeeDTO:
+      type: object
+      description: Data element for User
+      required:
+        - email
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        firstName:
+          type: string
+          minLength: 3
+        lastName:
+          type: string
+        address:
+          type: string
+
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
